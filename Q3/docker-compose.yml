@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  q3_main:
+    build: ./main
+    ports:
+      - "8000:8000"
+    networks:
+      - q3_network
+  q3_app:
+    build: ./app
+    ports:
+      - "8080:8080"
+    networks:
+      - q3_network
+    depends_on: # To make sure they can communicate with each other.
+      - q3_main
+
+networks:
+  q3_network:
+    driver: bridge
